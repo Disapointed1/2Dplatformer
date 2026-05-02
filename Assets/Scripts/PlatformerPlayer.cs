@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class PlatformerPlayer : MonoBehaviour
 {
+    private const string AnimatorSpeed = "Speed";
+    private const string JumpValue = "Jump";
+    private const string HorizontalValue = "Horizontal";
+
     private Rigidbody2D _body;
     private Animator _animator;
     private BoxCollider2D _box;
 
-    [SerializeField] private float speed = 4.5f;
+    [SerializeField] private  float speed = 4.5f;
     [SerializeField] private float jumpForce = 12.0f;
-    void Start()
+   private void Start()
     {
         _box = GetComponent<BoxCollider2D>();
         _body = GetComponent<Rigidbody2D>();
@@ -18,9 +22,9 @@ public class PlatformerPlayer : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+   private void Update()
     {
-        float deltaX = Input.GetAxis("Horizontal") * speed;
+        float deltaX = Input.GetAxis(HorizontalValue) * speed;
         Vector2 movement = new Vector2(deltaX, _body.velocity.y);
         _body.velocity = movement;
 
@@ -36,12 +40,12 @@ public class PlatformerPlayer : MonoBehaviour
             grounded = true;
         }
 
-        if (grounded && Input.GetButtonDown("Jump"))
+        if (grounded && Input.GetButtonDown(JumpValue))
         {
             _body.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
 
-        _animator.SetFloat("Speed", Mathf.Abs(deltaX));
+        _animator.SetFloat(AnimatorSpeed, Mathf.Abs(deltaX));
 
         if (deltaX > 0)
         {

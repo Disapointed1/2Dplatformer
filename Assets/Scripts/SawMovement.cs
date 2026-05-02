@@ -11,7 +11,7 @@ public class SawMovement : MonoBehaviour
     private Vector2 _positionA;
     private Vector2 _positionB;
     private bool _movingToB = true;
-    void Start()
+    private void Start()
     {
         _positionA = _pointA.position;
         _positionB = _pointB.position;
@@ -19,7 +19,7 @@ public class SawMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         Vector2 target = _movingToB ? _positionB : _positionA;
         transform.position = Vector2.MoveTowards(transform.position, target, _speed * Time.deltaTime);
@@ -33,7 +33,7 @@ public class SawMovement : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent(out PlatformerPlayer player))
+        if (other.TryGetComponent(out PlatformerPlayer _))
         {
             Debug.Log("HIT");
         }

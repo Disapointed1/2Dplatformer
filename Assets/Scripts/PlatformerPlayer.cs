@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlatformerPlayer : MonoBehaviour
 {
+    [SerializeField] private  float speed = 4.5f;
+    [SerializeField] private float jumpForce = 12.0f;
+
     private const string AnimatorSpeed = "Speed";
     private const string JumpValue = "Jump";
     private const string HorizontalValue = "Horizontal";
@@ -11,14 +14,13 @@ public class PlatformerPlayer : MonoBehaviour
     private Rigidbody2D _body;
     private Animator _animator;
     private BoxCollider2D _box;
-
-    [SerializeField] private  float speed = 4.5f;
-    [SerializeField] private float jumpForce = 12.0f;
-   private void Start()
+    private SpriteRenderer _spriteRenderer;
+    private void Awake()
     {
         _box = GetComponent<BoxCollider2D>();
         _body = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        _spriteRenderer =  GetComponent<SpriteRenderer>() ;
     }
 
     // Update is called once per frame
@@ -49,10 +51,10 @@ public class PlatformerPlayer : MonoBehaviour
 
         if (deltaX > 0)
         {
-            GetComponent<SpriteRenderer>().flipX = false;
+            _spriteRenderer.flipX = false;
         } else if (deltaX < 0)
         {
-            GetComponent<SpriteRenderer>().flipX = true;
+            _spriteRenderer.flipX = true;
         }
     }
 }

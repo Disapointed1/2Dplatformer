@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlatformerPlayer : MonoBehaviour
 {
-    [SerializeField] private  float speed = 4.5f;
-    [SerializeField] private float jumpForce = 12.0f;
 
     private const string AnimatorSpeed = "Speed";
     private const string JumpValue = "Jump";
@@ -15,6 +14,14 @@ public class PlatformerPlayer : MonoBehaviour
     private Animator _animator;
     private BoxCollider2D _box;
     private SpriteRenderer _spriteRenderer;
+
+    [SerializeField] private  float speed = 4.5f;
+    [SerializeField] private float jumpForce = 12.0f;
+
+    public float HP { get; private set; } = 100f;
+    public HealthBar healthBar;
+
+
     private void Awake()
     {
         _box = GetComponent<BoxCollider2D>();
@@ -56,5 +63,17 @@ public class PlatformerPlayer : MonoBehaviour
         {
             _spriteRenderer.flipX = true;
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        HP -= damage;
+        healthBar.SetHealth(HP);
+    }
+
+    public void Heal(float healAmount)
+    {
+        HP += healAmount;
+        healthBar.SetHealth(HP);
     }
 }

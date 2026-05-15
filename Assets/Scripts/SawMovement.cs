@@ -11,6 +11,9 @@ public class SawMovement : MonoBehaviour
     private Vector2 _positionA;
     private Vector2 _positionB;
     private bool _movingToB = true;
+
+
+
     private void Start()
     {
         _positionA = _pointA.position;
@@ -35,7 +38,8 @@ public class SawMovement : MonoBehaviour
     {
         if (other.TryGetComponent(out PlatformerPlayer _))
         {
-            Debug.Log("HIT");
+            PlatformerPlayer _player = other.gameObject.GetComponent<PlatformerPlayer>();
+            _player.TakeDamage(3f);
         }
     }
 }
